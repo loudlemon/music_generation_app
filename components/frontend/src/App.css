@@ -1,38 +1,78 @@
+/* App.css */
+
 .App {
-  text-align: center;
+  /* Make the container take up the full viewport */
+  width: 100vw; /* 100% of viewport width */
+  height: 100vh; /* 100% of viewport height */
+  /* Establish a positioning context for absolute children */
+  position: relative;
+  /* Hide any overflow if the video is slightly larger */
+  overflow: hidden;
+
+  /* Optional: Add display flex/grid if you had other content,
+     but for this specific layout (overlay), position: absolute is key. */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */ /* These would center content *within* the App if not absolutely positioned */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.video-background {
+  position: absolute; /* Take it out of the normal flow */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Ensure the video covers the entire container without distortion */
+  object-fit: cover;
+  /* Place the video behind other content */
+  z-index: -1; /* Or a low positive number like 0 if text-panel is 1 */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.video-background video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Important for the video element itself */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.text-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+
+  /* --- Modifications for width and optional border --- */
+  /* Make the panel wider */
+  width: 60%; /* Use a percentage for responsiveness */
+  max-width: 530px; /* Prevent it from getting too wide on very large screens */
+  /* You could also use a fixed pixel width, e.g., width: 500px; */
+
+  /* Optional: Add a border to the panel itself */
+  /* border: 2px solid #fff; /* Example: a 2px solid white border */
+  /* border: 1px solid rgba(255, 255, 255, 0.5); /* Example: a subtle semi-transparent white border */
+
+  background-color: rgba(0, 0, 0, 0.2); /* Slightly more opaque background */
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center; /* Center content within the panel */
 }
 
-.App-link {
-  color: #61dafb;
+.text-input {
+  padding: 12px; /* Slightly more padding */
+  font-size: 18px; /* Slightly larger text */
+  border: 1px solid #ccc; /* Keep the border */
+  border-radius: 4px;
+  /* Make the input take up more of the panel's width */
+  width: 100%; /* Take up 90% of the *panel's* width */
+  /* Adjust max-width if you want the input field itself to be wider than 300px */
+  max-width: 800px; /* Allow the input field to be wider */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Optional: Style the placeholder text */
+.text-input::placeholder {
+    color: #aaa;
+    margin-bottom: 15px; /* Add some space between the text and the input field */
+    font-size: 1.1em;
 }
+
